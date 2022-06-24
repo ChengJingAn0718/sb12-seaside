@@ -133,7 +133,8 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
             setTimeout(() => {
                 audioList.bodyAudio2.play()
                 setTimeout(() => {
-                    showIndividualImage()
+                    nextFunc()
+                    // showIndividualImage()
                 }, audioList.bodyAudio2.duration * 1000 + 1000);
             }, 3000);
         },
