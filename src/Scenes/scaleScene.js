@@ -10,12 +10,12 @@ const maskPathList = [
     ['1'],
     ['2'],
     ['3'],
-    ['4'],
+    ['sub'],
     ['5'],
     ['6'],
     ['7'],
     ['8'],
-    ['9'],
+    ['sub'],
     ['10'],
     ['11'],
     ['12'],
@@ -29,9 +29,10 @@ const maskTransformList = [
     { x: 0.25, y: 0.3, s: 1.6 },
     { x: 0.35, y: -0.5, s: 2 },
     { x: -0.3, y: -0.27, s: 1.6 },
-    { x: -0.4, y: -0.3, s: 2 },
+    { x: -0.5, y: -0.5, s: 2 },
     { x: -0.45, y: 0.2, s: 2 },
-    { x: -0.5, y: 0.2, s: 2 },
+    { x: -0.7, y: 0.3, s: 2.4 },
+
     { x: -0.7, y: 0.4, s: 2.4 },
     { x: 0.4, y: -0.4, s: 1.8 },
     { x: -0.55, y: 0.55, s: 2.2 },
@@ -48,9 +49,10 @@ const marginPosList = [
     { s: 2, l: 0.3, t: 0.5 },
     { s: 2, l: 0.55, t: -0.55 },
     { s: 2, l: -0.58, t: -0.1 },
-    { s: 2, l: -0.35, t: -0.25 },
-    { s: 3, l: -0.8, t: 0.4 },
+    { s: 2, l: -0.6, t: -0.3 },
+    { s: 2, l: -0.48, t: 0.3 },
     { s: 2, l: -0.64, t: 0.2 },
+
     { s: 2, l: -0.65, t: 0.3 },
     { s: 3, l: 0.7, t: -0.8 },
     { s: 2, l: -0.42, t: 0.3 },
@@ -74,26 +76,15 @@ const audioPathList = [
 
 
 const subMarkInfoList = [
-
     [
-        { p: '3', t: 2000, ps: 2, pl: 0.4, pt: -0.4 },
-        { p: '4', t: 3600, ps: 2, pl: 0.3, pt: -1 },
+        { p: 'b2', t: 2300, ps: 1, pl: 0.2, pt: 0.25 },
+        { p: 'b1', t: 5400, ps: 1, pl: 0.3, pt: 0.25 },
+        
     ],
     [
-        { p: '5', t: 2500, ps: 3, pl: 0.2, pt: 0 },
-        { p: '6', t: 3500, ps: 3, pl: 0.2, pt: -0.2 },
-    ],
-    [
-        { p: '7', t: 2000, ps: 2, pl: 0.0, pt: 0 },
-        { p: '8', t: 3300, ps: 2, pl: -0.7, pt: 0.2 },
-    ],
-    [
-        { p: '11', t: 2500, ps: 2, pl: -0.3, pt: 0.2 },
-        { p: '12', t: 4000, ps: 2, pl: 0.1, pt: 0.3 },
-    ],
-    [
-        { p: '11', t: 1300, ps: 2, pl: -0.3, pt: 0.2 },
-        { p: '12', t: 4500, ps: 2, pl: 0.1, pt: 0.3 },
+        { p: 'c1', t: 1000, ps: 0.5, pl: -0.2, pt: 0.01 },
+        { p: 'c2', t: 5000, ps: 0.5, pl: -0.2, pt: 0.01 },
+        
     ],
 
 ]
@@ -118,16 +109,17 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
         },
         sceneStart: () => {
 
-
-            setExtraVolume(audioList.bodyAudio1, 4)
-            setExtraVolume(audioList.bodyAudio2, 4)
-            setExtraVolume(audioList.bodyAudio3, 4)
+            setExtraVolume(audioList.bodyAudio1, 6)
+            setExtraVolume(audioList.bodyAudio2, 6)
+            setExtraVolume(audioList.bodyAudio3, 6)
 
             loadFunc()
 
+            setSubMaskLoaded(true)
+
             baseObject.current.className = 'aniObject'
 
-            audioList.bodyAudio1.src = getAudioPath('intro/3');
+            audioList.bodyAudio1.src = getAudioPath('intro/' + audioPathList[currentMaskNum]);
             audioList.bodyAudio2.src = getAudioPath('intro/2');
 
             blackWhiteObject.current.style.WebkitMaskImage = 'url("' +
@@ -135,6 +127,7 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
 
             blackWhiteObject.current.style.transition = "0.5s"
             currentImage.current.style.transition = '0.5s'
+
 
 
             setTimeout(() => {
@@ -190,6 +183,9 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
                     setTimeout(() => {
                         if (index == 0)
                             colorObject.current.className = 'hide'
+
+                        if (index > 0)
+                            subMaskRefList[index - 1].current.setClass('disapear')
                         subMaskRefList[index].current.setClass('appear')
                         if (value.ps != null) {
                             subMaskRefList[index].current.setStyle({
@@ -372,17 +368,6 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
                             <BaseImage
                                 url={'bg/base.png'}
                             />
-
-                            {/* {
-                        outLineRefList.map(
-                            (value, index) =>
-                                <BaseImage
-                                    className='hideObject'
-                                    ref={outLineRefList[index]}
-                                />
-                        )
-
-                    } */}
 
                         </div>
                     </div>
