@@ -91,14 +91,13 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, _geo, loadFunc }, ref) => 
     }
 
     const showControlFunc = () => {
-
-        blackWhiteObject.current.style.WebkitMaskImage = 'url("' + prePathUrl() + 'images/question/' + (stepCount + 2) + '/m.png")'
-
-        if (stepCount < questionPartCount - 1)
+        if (stepCount < questionPartCount - 1) {
+            blackWhiteObject.current.style.WebkitMaskImage = 'url("' + prePathUrl() + 'images/question/' + (stepCount + 2) + '/m.png")'
             aniImageList.map((image, index) => {
                 if (index < 3)
                     image.current.setUrl('question/' + (stepCount + 2) + '/' + (index + 1) + '.png')
             })
+        }
 
 
         timerList[2] = setTimeout(() => {
@@ -342,7 +341,6 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, _geo, loadFunc }, ref) => 
                                 </div>)
                         }
                     </div>
-
                     {
                         isSecondShow
                         &&
@@ -375,9 +373,7 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, _geo, loadFunc }, ref) => 
                                     background: 'black',
 
                                 }} >
-
                             </div>
-
                             {
                                 [1, 2, 3].map(value =>
                                     <BaseImage
@@ -430,7 +426,7 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, _geo, loadFunc }, ref) => 
                                             top: '-32%'
                                         }}
                                         draggable={false}
-                                        src={prePathUrl() + 'images/Buttons/Answer_Button.svg'}
+                                        src={prePathUrl() + 'images/buttons/answer_button.svg'}
                                     />
                                 </div>
                             </div>

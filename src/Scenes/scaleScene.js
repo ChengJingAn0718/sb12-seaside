@@ -133,7 +133,6 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
             setTimeout(() => {
                 audioList.bodyAudio2.play()
                 setTimeout(() => {
-                    // nextFunc()
                     showIndividualImage()
                 }, audioList.bodyAudio2.duration * 1000 + 1000);
             }, 3000);
@@ -156,7 +155,7 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
     ]
     function showIndividualImage() {
         blackWhiteObject.current.className = 'hideObject'
-        let currentMaskName = maskPathList[currentMaskNum]
+        let currentMaskName = maskPathList[currentMaskNum][0]
 
         baseObject.current.style.transition = durationList[currentMaskNum] + 's'
 
@@ -286,8 +285,8 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
                                 }
 
                                 currentMaskNum++;
+                                currentMaskName = maskPathList[currentMaskNum][0]
 
-                                currentMaskName = maskPathList[currentMaskNum]
                                 if (currentMaskName != 'sub')
                                     blackWhiteObject.current.style.WebkitMaskImage = 'url("' +
                                         returnImgPath(maskPathList[currentMaskNum], true) + '")'
@@ -350,7 +349,7 @@ const Scene = React.forwardRef(({ nextFunc, _baseGeo, loadFunc, bgLoaded }, ref)
                             left: '0%',
                             top: '0%',
                             WebkitMaskImage: 'url("' +
-                                returnImgPath(maskPathList[2][0], true)
+                                returnImgPath(maskPathList[0][0], true)
                                 + '")',
                             WebkitMaskSize: '100% 100%',
                             WebkitMaskRepeat: "no-repeat"
